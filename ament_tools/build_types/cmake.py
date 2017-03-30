@@ -73,7 +73,7 @@ class CmakeBuildType(BuildType):
                  "The option is only used by the 'test*' verbs. "
                  "Argument collection can be terminated with '--'.")
         parser.add_argument(
-            '--ninja',
+            '--use-ninja',
             action='store_true',
             help="Invoke 'cmake' with -G Ninja and call ninja instead of make.")
 
@@ -97,10 +97,7 @@ class CmakeBuildType(BuildType):
         ce.add('force_cmake_configure', force_cmake_configure)
         ce.add('cmake_args', options.cmake_args)
         ce.add('ctest_args', options.ctest_args)
-        ninja_build = False
-        if getattr(options, 'ninja', False):
-            ninja_build = True
-        ce.add('ninja_build', ninja_build)
+        ce.add('use_ninja', options.use_ninja)
         return ce
 
     def on_build(self, context):
@@ -108,7 +105,7 @@ class CmakeBuildType(BuildType):
         should_run_configure = False
         if context.force_cmake_configure:
             should_run_configure = True
-        elif context.ninja_build and not ninjabuild_exists_at(context.build_space):
+        elif context.use_ninja and not ninjabuild_exists_at(context.build_space):
             should_run_configure = True
         elif not makefile_exists_at(context.build_space) or \
                 not cmakecache_exists_at(context.build_space):
@@ -135,10 +132,9 @@ class CmakeBuildType(BuildType):
         extra_cmake_args = []
         if should_run_configure:
             extra_cmake_args += context.cmake_args
-        if context.ninja_build:
+        if context.use_ninja:
             extra_cmake_args += ['-G']
             extra_cmake_args += ['Ninja']
-            extra_cmake_args += ["-DCMAKE_MAKE_PROGRAM=/usr/bin/ninja"]
         # Yield the cmake common on_build
         for step in self._common_cmake_on_build(
             should_run_configure, context, prefix, extra_cmake_args
@@ -175,7 +171,7 @@ class CmakeBuildType(BuildType):
             yield BuildAction(cmd)
         # Now execute the build step
         if not IS_WINDOWS:
-            if context.ninja_build:
+            if context.use_ninja:
                 if NINJA_EXECUTABLE is None:
                     raise VerbExecutionError("Could not find 'make' executable")
                 yield BuildAction(prefix + [NINJA_EXECUTABLE] + context.make_flags)
@@ -373,7 +369,7 @@ class CmakeBuildType(BuildType):
         prefix = self._get_command_prefix('install', context)
 
         if not IS_WINDOWS:
-            if context.ninja_build:
+            if context.use_ninja:
                 if NINJA_EXECUTABLE is None:
                     raise VerbExecutionError("Could not find 'ninja' executable")    
                 yield BuildAction(prefix + [NINJA_EXECUTABLE, 'install'])
