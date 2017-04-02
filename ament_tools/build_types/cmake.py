@@ -371,7 +371,7 @@ class CmakeBuildType(BuildType):
         if not IS_WINDOWS:
             if context.use_ninja:
                 if NINJA_EXECUTABLE is None:
-                    raise VerbExecutionError("Could not find 'ninja' executable")    
+                    raise VerbExecutionError("Could not find 'ninja' executable")
                 yield BuildAction(prefix + [NINJA_EXECUTABLE, 'install'])
             else:
                 if has_make_target(context.build_space, 'install') or context.dry_run:
@@ -380,10 +380,9 @@ class CmakeBuildType(BuildType):
                     yield BuildAction(prefix + [MAKE_EXECUTABLE, 'install'])
                 else:
                     self.warn('Could not run installation for package because it has no '
-                          "'install' target")
+                              "'install' target")
         else:
-            install_project_file = project_file_exists_at(
-                context.build_space, 'INSTALL')
+            install_project_file = project_file_exists_at(context.build_space, 'INSTALL')
             if install_project_file is not None:
                 if MSBUILD_EXECUTABLE is None:
                     raise VerbExecutionError("Could not find 'msbuild' executable")

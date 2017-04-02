@@ -32,7 +32,7 @@ IS_WINDOWS = os.name == 'nt'
 class AmentCmakeBuildType(CmakeBuildType):
     build_type = 'ament_cmake'
     description = "ament package built with cmake"
-    
+
     def prepare_arguments(self, parser):
         parser.add_argument(
             '--force-ament-cmake-configure',
@@ -62,7 +62,7 @@ class AmentCmakeBuildType(CmakeBuildType):
             force_ament_cmake_configure = True
         ce.add('force_ament_cmake_configure', force_ament_cmake_configure)
         ce.add('ament_cmake_args', options.ament_cmake_args)
-        
+
         return ce
 
     def on_build(self, context):

@@ -44,9 +44,11 @@ def makefile_exists_at(path):
     makefile = os.path.join(path, 'Makefile')
     return os.path.isfile(makefile)
 
+
 def ninjabuild_exists_at(path):
-    ninjabuild = os.path.join(path,'build.ninja')
+    ninjabuild = os.path.join(path, 'build.ninja')
     return os.path.isfile(ninjabuild)
+
 
 def solution_file_exists_at(path, package_name):
     solution_file = os.path.join(path, package_name + '.sln')
