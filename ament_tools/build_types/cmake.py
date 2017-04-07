@@ -75,7 +75,7 @@ class CmakeBuildType(BuildType):
         parser.add_argument(
             '--use-ninja',
             action='store_true',
-            help="Invoke 'cmake' with -G Ninja and call ninja instead of make.")
+            help="Invoke 'cmake' with '-G Ninja' and call ninja instead of make.")
 
     def argument_preprocessor(self, args):
         # The CMake pass-through flag collects dashed options.
@@ -133,8 +133,7 @@ class CmakeBuildType(BuildType):
         if should_run_configure:
             extra_cmake_args += context.cmake_args
         if context.use_ninja:
-            extra_cmake_args += ['-G']
-            extra_cmake_args += ['Ninja']
+            extra_cmake_args += ['-G', 'Ninja']
         # Yield the cmake common on_build
         for step in self._common_cmake_on_build(
             should_run_configure, context, prefix, extra_cmake_args
