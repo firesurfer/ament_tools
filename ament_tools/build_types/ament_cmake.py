@@ -102,8 +102,7 @@ class AmentCmakeBuildType(CmakeBuildType):
             extra_cmake_args += context.cmake_args
             extra_cmake_args += context.ament_cmake_args
         if context.use_ninja:
-            extra_cmake_args += ['-G']
-            extra_cmake_args += ['Ninja']
+            extra_cmake_args += ['-G', 'Ninja']
         # Yield the cmake common on_build (defined in CmakeBuildType)
         for step in self._common_cmake_on_build(
             should_run_configure, context, prefix, extra_cmake_args
