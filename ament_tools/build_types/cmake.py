@@ -34,12 +34,12 @@ from ament_tools.build_types.cmake_common import cmakecache_exists_at
 from ament_tools.build_types.cmake_common import get_visual_studio_version
 from ament_tools.build_types.cmake_common import has_make_target
 from ament_tools.build_types.cmake_common import MAKE_EXECUTABLE
-from ament_tools.build_types.cmake_common import NINJA_EXECUTABLE
 from ament_tools.build_types.cmake_common import makefile_exists_at
 from ament_tools.build_types.cmake_common import MSBUILD_EXECUTABLE
+from ament_tools.build_types.cmake_common import NINJA_EXECUTABLE
+from ament_tools.build_types.cmake_common import ninjabuild_exists_at
 from ament_tools.build_types.cmake_common import project_file_exists_at
 from ament_tools.build_types.cmake_common import solution_file_exists_at
-from ament_tools.build_types.cmake_common import ninjabuild_exists_at
 
 from ament_tools.build_types.common import expand_package_level_setup_files
 from ament_tools.build_types.common import get_cached_config
