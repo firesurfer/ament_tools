@@ -21,8 +21,8 @@ from osrf_pycommon.process_utils import which
 CMAKE_EXECUTABLE = which('cmake')
 CTEST_EXECUTABLE = which('ctest')
 MAKE_EXECUTABLE = which('make')
-NINJA_EXECUTABLE = which('ninja')
 MSBUILD_EXECUTABLE = which('msbuild')
+NINJA_EXECUTABLE = which('ninja')
 
 __target_re = re.compile(r'^([a-zA-Z0-9][a-zA-Z0-9_\.]*):')
 
