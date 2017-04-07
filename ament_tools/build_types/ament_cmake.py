@@ -62,7 +62,6 @@ class AmentCmakeBuildType(CmakeBuildType):
             force_ament_cmake_configure = True
         ce.add('force_ament_cmake_configure', force_ament_cmake_configure)
         ce.add('ament_cmake_args', options.ament_cmake_args)
-
         return ce
 
     def on_build(self, context):
